@@ -38,7 +38,7 @@ $ npm run test
 
 Once you run the app, you can access the swagger [here](http://localhost:3000/api/)
 
-- [GET] Health point check
+- [GET] Healthcheck
 ```
 curl --request GET 'http://localhost:3000/hello'
 ```
@@ -48,7 +48,6 @@ curl --request GET 'http://localhost:3000/hello'
 curl --request POST \
   --url http://localhost:3000/v1/notification \
   --header 'Content-Type: application/json' \
-  --header 'User-Agent: insomnia/9.2.0' \
   --data '{
 	"type": "status",
 	"userId": "cami@gmail",
