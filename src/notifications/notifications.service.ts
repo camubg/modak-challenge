@@ -9,6 +9,7 @@ import { NotificationTypeEnum } from './dto/notification-type.enum';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
 import { RateLimitRule } from './dto/rate-limit-rule';
+import * as process from 'process';
 
 export const ONE_MINUTE_MS: number = 60 * 1000;
 export const ONE_HOUR_MS: number = 60 * ONE_MINUTE_MS;
@@ -53,15 +54,24 @@ export class NotificationsService {
   private initRateLimitRules() {
     this.rateLimitRules.set(
       NotificationTypeEnum.STATUS,
-      new RateLimitRule(2, ONE_MINUTE_MS),
+      new RateLimitRule(
+        Number(process.env.STATUS_LIMIT) ?? 2,
+        Number(process.env.STATUS_TIME) ?? ONE_MINUTE_MS,
+      ),
     );
     this.rateLimitRules.set(
       NotificationTypeEnum.NEWS,
-      new RateLimitRule(1, ONE_DAY_MS),
+      new RateLimitRule(
+        Number(process.env.NEWS_LIMIT) ?? 1,
+        Number(process.env.NEWS_TIME) ?? ONE_DAY_MS,
+      ),
     );
     this.rateLimitRules.set(
       NotificationTypeEnum.MARKETING,
-      new RateLimitRule(3, ONE_HOUR_MS),
+      new RateLimitRule(
+        Number(process.env.MKT_LIMIT) ?? 3,
+        Number(process.env.MKT_TIME) ?? ONE_HOUR_MS,
+      ),
     );
   }
 

@@ -38,6 +38,11 @@ $ npm run test
 
 Once you run the app, you can access the swagger [here](http://localhost:3000/api/)
 
+Please login to use the notification endpoint:
+`user: admin &
+password: admin`
+
+
 - [GET] Healthcheck
 ```
 curl --request GET 'http://localhost:3000/hello'
