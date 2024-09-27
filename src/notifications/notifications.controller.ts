@@ -22,7 +22,8 @@ export class NotificationsController {
   ) {}
 
   @ApiOperation({
-    summary: 'Send notification to a user',
+    summary:
+      'Send notification to some user, you need the type of message + the user id + the message',
   })
   @HttpCode(HttpStatus.CREATED)
   @Post()

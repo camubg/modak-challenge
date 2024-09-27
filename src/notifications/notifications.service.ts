@@ -73,11 +73,15 @@ export class NotificationsService {
     if (!rateLimit) return true;
 
     const smsSentCount: number = await this.cacheManager.get(
-      `${userId.toLowerCase()}+${type}`,
+      this.getKey(userId, type),
     );
 
     if (!smsSentCount) return true;
     return smsSentCount < rateLimit.limit;
+  }
+
+  private getKey(userId: string, type: NotificationTypeEnum): string {
+    return `${userId.toLowerCase()}+${type}`;
   }
 
   private async incrementCount(
@@ -87,13 +91,16 @@ export class NotificationsService {
     const rateLimit = this.rateLimitRules.get(type);
     if (!rateLimit) return;
 
-    const key = `${userId.toLowerCase()}+${type}`;
-    let smsSentCount: number = await this.cacheManager.get(key);
+    const key = this.getKey(userId, type);
+    const smsSentCount: number = (await this.cacheManager.get(key)) ?? 0;
 
-    await this.cacheManager.set(key, smsSentCount++);
+    const ttl: number =
+      smsSentCount === 0 ? rateLimit.timeWindowMs : await this.getTtl(key);
+    await this.cacheManager.set(key, smsSentCount + 1, ttl);
+  }
 
-    if (smsSentCount === 1) {
-      await this.cacheManager.set(key, smsSentCount, rateLimit.timeWindowMs);
-    }
+  private async getTtl(key: string): Promise<number> {
+    const client = this.cacheManager.store;
+    return client.ttl(key);
   }
 }
