@@ -36,8 +36,9 @@ $ npm run test
 
 ## Endpoints
 
-Once you run the app, you can access the swagger [here](http://localhost:3000/api/)
-Please make sure you have the api key to use the endpoint.
+Once you run the app, you can access the swagger [here](http://localhost:3000/api/).
+
+Please make sure you have the api key to use the endpoint, you can find it in the `.env` file.
 
 
 - [GET] Healthcheck
