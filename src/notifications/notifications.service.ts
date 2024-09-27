@@ -55,22 +55,22 @@ export class NotificationsService {
     this.rateLimitRules.set(
       NotificationTypeEnum.STATUS,
       new RateLimitRule(
-        Number(process.env.STATUS_LIMIT) ?? 2,
-        Number(process.env.STATUS_TIME) ?? ONE_MINUTE_MS,
+        Number(process.env.STATUS_LIMIT ?? 2),
+        Number(process.env.STATUS_TIME ?? ONE_MINUTE_MS),
       ),
     );
     this.rateLimitRules.set(
       NotificationTypeEnum.NEWS,
       new RateLimitRule(
-        Number(process.env.NEWS_LIMIT) ?? 1,
-        Number(process.env.NEWS_TIME) ?? ONE_DAY_MS,
+        Number(process.env.NEWS_LIMIT ?? 1),
+        Number(process.env.NEWS_TIME ?? ONE_DAY_MS),
       ),
     );
     this.rateLimitRules.set(
       NotificationTypeEnum.MARKETING,
       new RateLimitRule(
-        Number(process.env.MKT_LIMIT) ?? 3,
-        Number(process.env.MKT_TIME) ?? ONE_HOUR_MS,
+        Number(process.env.MKT_LIMIT ?? 3),
+        Number(process.env.MKT_TIME ?? ONE_HOUR_MS),
       ),
     );
   }
