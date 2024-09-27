@@ -1,10 +1,9 @@
 import { Logger, Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { NotificationsModule } from './notifications/notifications.module';
-import { AuthModule } from './auth/auth.module';
 
 @Module({
-  imports: [NotificationsModule, AuthModule],
+  imports: [NotificationsModule],
   controllers: [AppController],
   providers: [Logger],
 })

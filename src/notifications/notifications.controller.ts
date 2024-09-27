@@ -11,9 +11,9 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { NotificationsService } from './notifications.service';
-import { ApiTags, ApiOperation } from '@nestjs/swagger';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { NotificationRequest } from './dto/notification.request';
-import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { ApiKeyGuard } from '../auth/api-key.guard';
 
 @ApiTags('Notifications')
 @Controller('v1/notification')
@@ -28,7 +28,7 @@ export class NotificationsController {
       'Send notification to some user, you need the type of message + the user id + the message',
   })
   @HttpCode(HttpStatus.CREATED)
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(ApiKeyGuard)
   @Post()
   async sendNotification(
     @Body(new ValidationPipe({ transform: true }))
