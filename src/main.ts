@@ -2,10 +2,14 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { Logger } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import * as dotenv from 'dotenv';
+import * as process from 'process';
+
+dotenv.config();
 
 async function bootstrap() {
   const logger = new Logger();
-  const port = 3000;
+  const port = process.env.PORT ?? 3000;
   const app = await NestFactory.create(AppModule);
   const config = new DocumentBuilder()
     .setTitle('API Documentation')

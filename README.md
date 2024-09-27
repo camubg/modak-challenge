@@ -43,15 +43,24 @@ Once you run the app, you can access the swagger [here](http://localhost:3000/ap
 curl --request GET 'http://localhost:3000/hello'
 ```
 
+- [POST] Login
+```
+curl --request POST \
+  --url http://localhost:3000/auth/login \
+  --header 'Content-Type: application/x-www-form-urlencoded' \
+  --data username=admin \
+  --data password=admin
+```
+
 - [POST] Send a sms
 ```
 curl --request POST \
   --url http://localhost:3000/v1/notification \
+  --header 'Authorization: Bearer {token}' \
   --header 'Content-Type: application/json' \
   --data '{
 	"type": "status",
 	"userId": "cami@gmail",
 	"message": "holaaa"
 }'
-
 ```
