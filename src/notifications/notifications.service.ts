@@ -1,4 +1,6 @@
 import {
+  HttpException,
+  HttpStatus,
   Inject,
   Injectable,
   InternalServerErrorException,
@@ -32,7 +34,10 @@ export class NotificationsService {
   ): Promise<boolean> {
     if (!(await this.canSendSms(type, userId))) {
       this.logger.log(`User limit reached for type: ${type}`);
-      return false;
+      throw new HttpException(
+        'Too Many Requests',
+        HttpStatus.TOO_MANY_REQUESTS,
+      );
     }
 
     try {
